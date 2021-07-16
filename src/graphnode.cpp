@@ -10,8 +10,10 @@ GraphNode::~GraphNode()
 {
     //// STUDENT CODE
     ////
-
-    delete _chatBot; 
+// Task 0 : Commenting the following to avoid Seg fault due to 
+// _chatbot being deleted twice
+  
+//     delete _chatBot; 
 
     ////
     //// EOF STUDENT CODE
