@@ -93,7 +93,7 @@ ChatBot::ChatBot(ChatBot &&source){
   	*_image = *source._image;
   
   	// Invalidate source handles
-  	source._chatlogic = nullptr;
+  	source._chatLogic = nullptr;
   	source._currentNode = nullptr;
   	source._rootNode = nullptr;
   	source._image = NULL;
@@ -105,7 +105,7 @@ ChatBot &ChatBot::operator=(ChatBot &&source){
   
   	if(this == &source) return *this;
   
-  	if(source._image != nullptr) delete this->image;
+  	if(source._image != nullptr) delete this->_image;
   
   	// Shallow copy for non owned objects
   	_currentNode = source._currentNode;
@@ -118,7 +118,7 @@ ChatBot &ChatBot::operator=(ChatBot &&source){
   	*_image = *source._image;
   
   	// Invalidate source handles
-  	source._chatlogic = nullptr;
+  	source._chatLogic = nullptr;
   	source._currentNode = nullptr;
   	source._rootNode = nullptr;
   	source._image = NULL;
