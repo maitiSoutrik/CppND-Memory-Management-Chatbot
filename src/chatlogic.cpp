@@ -243,7 +243,7 @@ void ChatLogic::SendMessageToUser(std::string message)
     _panelDialog->PrintChatbotResponse(message);
 }
 
-wxBitmap *ChatLogic::GetImageFromChatbot()
+std::unique_ptr<wxBitmap> ChatLogic::GetImageFromChatbot()
 {
     return _chatBot->GetImageHandle();
 }

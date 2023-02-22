@@ -27,7 +27,7 @@ ChatBot::ChatBot(std::string filename)
     _rootNode = nullptr;
 
     // load image into heap memory
-    _image = new wxBitmap(filename, wxBITMAP_TYPE_PNG);
+    _image = std::make_unique<wxBitmap>(filename, wxBITMAP_TYPE_PNG);
 }
 
 ChatBot::~ChatBot()
@@ -35,11 +35,11 @@ ChatBot::~ChatBot()
     std::cout << "ChatBot Destructor" << std::endl;
 
     // deallocate heap memory
-    if(_image != NULL) // Attention: wxWidgets used NULL and not nullptr
-    {
-        delete _image;
-        _image = NULL;
-    }
+    // if(_image != NULL) // Attention: wxWidgets used NULL and not nullptr
+    // {
+    //     delete _image;
+    //     _image = NULL;
+    // }
 }
 
 //// STUDENT CODE
@@ -54,9 +54,11 @@ ChatBot::ChatBot(const ChatBot &source){
   _chatLogic->SetChatbotHandle(this);
   
   // Doing a deep copy for owned objects
-  _image = new wxBitmap();
-  _image = source._image;
-  *_image = *source._image;
+//   _image = new wxBitmap();
+//   _image = source._image;
+//   *_image = *source._image;
+    _image = std::make_unique<wxBitmap>(*source._image);
+    
 }
 
 // Copy Assignment
@@ -64,7 +66,7 @@ ChatBot &ChatBot::operator=(const ChatBot &source){
 	std::cout<<" Copy Assignment called! " << std::endl;
   	if(this == &source) return *this;
   
-  	if(source._image != nullptr) delete this->_image;
+  	// if(source._image != nullptr) delete this->_image;
   
   	// Doing a shallow copy of non owned objects
   	_currentNode = source._currentNode;
@@ -73,9 +75,11 @@ ChatBot &ChatBot::operator=(const ChatBot &source){
   	_chatLogic->SetChatbotHandle(this);
   
   // Doing a deep copy for owned objects
-  	_image = new wxBitmap();
-  	_image = source._image;
-  	*_image = *source._image;
+  	// _image = new wxBitmap();
+  	// _image = source._image;
+  	// *_image = *source._image;
+    _image = std::make_unique<wxBitmap>(*source._image);
+      
 }
 
 // Move constructor
@@ -89,8 +93,9 @@ ChatBot::ChatBot(ChatBot &&source){
   	_chatLogic->SetChatbotHandle(this);
   
   	// Doing a deep copy for owned objects
-  	_image = source._image;
-  	*_image = *source._image;
+  	// _image = source._image;
+  	// *_image = *source._image;
+    _image = std::make_unique<wxBitmap>(*source._image);
   
   	// Invalidate source handles
   	source._chatLogic = nullptr;
@@ -105,7 +110,7 @@ ChatBot &ChatBot::operator=(ChatBot &&source){
   
   	if(this == &source) return *this;
   
-  	if(source._image != nullptr) delete this->_image;
+  	// if(source._image != nullptr) delete this->_image;
   
   	// Shallow copy for non owned objects
   	_currentNode = source._currentNode;
@@ -114,8 +119,9 @@ ChatBot &ChatBot::operator=(ChatBot &&source){
   	_chatLogic->SetChatbotHandle(this);
   
   	// Doing a deep copy for owned objects
-  	_image = source._image;
-  	*_image = *source._image;
+  	// _image = source._image;
+  	// *_image = *source._image;
+    _image = std::make_unique<wxBitmap>(*source._image);
   
   	// Invalidate source handles
   	source._chatLogic = nullptr;
