@@ -11,6 +11,7 @@
 // constructor WITHOUT memory allocation
 ChatBot::ChatBot()
 {
+  	std::cout << "ChatBot Constructor called WITHOUT memory allocation" << std::endl;
     // invalidate data handles
     _image = nullptr;
     _chatLogic = nullptr;
@@ -20,14 +21,14 @@ ChatBot::ChatBot()
 // constructor WITH memory allocation
 ChatBot::ChatBot(std::string filename)
 {
-    std::cout << "ChatBot Constructor" << std::endl;
+    std::cout << "ChatBot Constructor called WITH memory allocation" << std::endl;
     
     // invalidate data handles
     _chatLogic = nullptr;
     _rootNode = nullptr;
 
     // load image into heap memory
-    _image = new wxBitmap(filename, wxBITMAP_TYPE_PNG);
+   _image = new wxBitmap(filename, wxBITMAP_TYPE_PNG);
 }
 
 ChatBot::~ChatBot()
@@ -46,51 +47,65 @@ ChatBot::~ChatBot()
 ////
 // Copy Constructor
 ChatBot::ChatBot(const ChatBot &source){
-	std::cout<<" Copy constructor called! "<<std::endl;
+	std::cout<<" ChatBot Copy constructor called! "<<std::endl;
+
   	// Doing a shallow copy of non owned objects
-  	_currentNode = source._currentNode;
-  	SetRootNode(source._rootNode);
-  	SetChatLogicHandle(source._chatLogic);
-  _chatLogic->SetChatbotHandle(this);
-  
+//   	_currentNode = source._currentNode;
+//   	SetRootNode(source._rootNode);
+//   	SetChatLogicHandle(source._chatLogic);
+//   _chatLogic->SetChatbotHandle(this);
+
+    _chatLogic = source._chatLogic;
+    _rootNode = source._rootNode;
+
   // Doing a deep copy for owned objects
-  _image = new wxBitmap();
-  _image = source._image;
-  *_image = *source._image;
+    _image = new wxBitmap();
+//   _image = source._image;
+    *_image = *source._image;
+    
 }
 
 // Copy Assignment
 ChatBot &ChatBot::operator=(const ChatBot &source){
-	std::cout<<" Copy Assignment called! " << std::endl;
+	std::cout<<"ChatBot Copy Assignment called! " << std::endl;
   	if(this == &source) return *this;
   
   	if(source._image != nullptr) delete this->_image;
   
   	// Doing a shallow copy of non owned objects
-  	_currentNode = source._currentNode;
-  	SetRootNode(source._rootNode);
-  	SetChatLogicHandle(source._chatLogic);
-  	_chatLogic->SetChatbotHandle(this);
-  
+  	// _currentNode = source._currentNode;
+  	// SetRootNode(source._rootNode);
+  	// SetChatLogicHandle(source._chatLogic);
+  	// _chatLogic->SetChatbotHandle(this);
+
+    _chatLogic = source._chatLogic;
+    _rootNode = source._rootNode;
+
   // Doing a deep copy for owned objects
   	_image = new wxBitmap();
-  	_image = source._image;
-  	*_image = *source._image;
+  	// _image = source._image;
+  	*_image = *source._image;      
+
+    return *this;
 }
 
 // Move constructor
 ChatBot::ChatBot(ChatBot &&source){
-	std::cout<< " Move Constructor called ! "<< std::endl;
+	std::cout<< "ChatBot Move Constructor called ! "<< std::endl;
   
   	// Shallow copy for non owned objects
-  	_currentNode = source._currentNode;
-  	SetRootNode(source._rootNode);
-  	SetChatLogicHandle(source._chatLogic);
-  	_chatLogic->SetChatbotHandle(this);
-  
+  	// _currentNode = source._currentNode;
+  	// SetRootNode(source._rootNode);
+  	// SetChatLogicHandle(source._chatLogic);
+  	// _chatLogic->SetChatbotHandle(this);
+
+    _chatLogic = source._chatLogic;
+    _rootNode = source._rootNode;
+
   	// Doing a deep copy for owned objects
   	_image = source._image;
-  	*_image = *source._image;
+  	// *_image = *source._image;
+
   
   	// Invalidate source handles
   	source._chatLogic = nullptr;
@@ -101,21 +116,24 @@ ChatBot::ChatBot(ChatBot &&source){
 
 // Move Assignment
 ChatBot &ChatBot::operator=(ChatBot &&source){
-	std::cout<<" Move Assignment called!"<<std::endl;
+	std::cout<<"ChatBot Move Assignment called!"<<std::endl;
   
   	if(this == &source) return *this;
   
   	if(source._image != nullptr) delete this->_image;
   
   	// Shallow copy for non owned objects
-  	_currentNode = source._currentNode;
-  	SetRootNode(source._rootNode);
-  	SetChatLogicHandle(source._chatLogic);
-  	_chatLogic->SetChatbotHandle(this);
-  
+  	// _currentNode = source._currentNode;
+  	// SetRootNode(source._rootNode);
+  	// SetChatLogicHandle(source._chatLogic);
+  	// _chatLogic->SetChatbotHandle(this);
+
+    _chatLogic = source._chatLogic;
+    _rootNode = source._rootNode;
+
   	// Doing a deep copy for owned objects
   	_image = source._image;
-  	*_image = *source._image;
+  	// *_image = *source._image;
   
   	// Invalidate source handles
   	source._chatLogic = nullptr;
